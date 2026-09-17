@@ -6,20 +6,6 @@
   
 ## Reporting
   
-### Daftar Isi
-- [Soal 1](#soal-1---konfigurasi-topologi-dan-ip-address)
-- [Soal 2](#soal-2---koneksi-lain-ke-public-internet)
-- [Soal 3](#soal-3---routing-antarjaringan)
-- [Soal 4](#soal-4---nat-dan-dns-resolver)
-- [Soal 5](#soal-5---persistensi-konfigurasi)
-- [Soal 7](#soal-7---konfigurasi-ftp-server-pada-chisa)
-- [Soal 9](#soal-9---mika)
-- [Soal 12](#soal-12---alice-ke-knights)
-- [Soal 13](#soal-13---ssh)
-- [Soal 15](#soal-15---analisis-usb-hid)
-- [Soal 19](#soal-19---smtp-threat)
-
-
 ## Modul 1
 ### Soal 1 - Konfigurasi Topologi dan IP Address  
 <img width="739" height="422" alt="image" src="https://github.com/user-attachments/assets/a5b22b3a-d5f0-4104-9e9c-2cad64907d73" />  
