@@ -385,7 +385,7 @@ get protocol_manifesto.txt
 ```
 Kemudian, coba upload sebagai Mika, buat file dummy dan coba untuk download.  
 ```
-echo "Mika upload test" > mika_test.txt
+echo "test upload mika" > test_mika.txt
 
 put mika_test.txt
 ```
