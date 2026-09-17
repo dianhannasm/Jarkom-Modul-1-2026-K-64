@@ -18,26 +18,6 @@ Pembagian alamat IP:
 | Knights | eth0      | 192.243.3.2/24 | 192.243.3.0/24 |
 | Eiri    | eth0      | 192.243.3.3/24 | 192.243.3.0/24 |
 
-**Konfigurasi Lain**  
-```
-auto eth0
-iface eth0 inet dhcp
-
-auto eth1
-iface eth1 inet static
-    address 192.243.1.1
-    netmask 255.255.255.0
-
-auto eth2
-iface eth2 inet static
-    address 192.243.2.1
-    netmask 255.255.255.0
-
-auto eth3
-iface eth3 inet static
-    address 192.243.3.1
-    netmask 255.255.255.0
-```
 **Konfigurasi Alice**  
 ```
 auto eth0
@@ -80,10 +60,27 @@ iface eth0 inet static
 ```
 
 ### Soal 2 - Koneksi Lain ke Public Internet  
-Pada Lain, interface eth0 dikonfigurasikan untuk mendapatkan alamat IP secara otomatis menggunakan DHCP:  
+Pada Lain, interface eth0 dikonfigurasikan untuk mendapatkan alamat IP secara otomatis menggunakan DHCP  
+
+**Konfigurasi Lain**  
 ```
 auto eth0
 iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+    address 192.243.1.1
+    netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+    address 192.243.2.1
+    netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+    address 192.243.3.1
+    netmask 255.255.255.0
 ```
 Untuk memastikan Lain dapat terhubung ke internet, dilakukan pengujian:  
 ```
@@ -130,7 +127,45 @@ Selanjutnya client diuji untuk memastikan dapat mengakses internet.
 <img width="482" height="76" alt="image" src="https://github.com/user-attachments/assets/85951c1e-e83a-43c6-81d5-788116654dfb" />
 
 ### Soal 5 - Persistensi Konfigurasi  
-Pada node Lain, dibuat script `init.sh` di dalam direktori `/root`:  
+Agar konfigurasi tetap diterapkan setelah node dijalankan kembali, dibuat script `/root/init.sh`. Script ini digunakan untuk menjalankan konfigurasi yang diperlukan secara otomatis saat node start.  
+
+Pada Lain:  
+```
+nano /root/init.sh
+```  
+Isi:  
+```
+#!/bin/sh
+
+sysctl -w net.ipv4.ip_forward=1
+
+iptables -t nat -C POSTROUTING -o eth0 -j MASQUERADE 2>/dev/null || \
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```  
+Kemudian dibuat executable:  
+```
+chmod +x /root/init.sh
+```
+Untuk mengecek hasil konfigurasi dibuat `/root/cek_status.sh`  
+```
+nano /root/cek_status.sh
+```  
+Isi:  
+```
+#!/bin/bash
+
+echo "Interface"
+ip -br a
+
+echo
+echo "Nat Table"
+iptables -t nat -L -v -n
+```
+  
+Kemudian:  
+```
+chmod +x /root/cek_status.sh
+```  
 
 <img width="481" height="374" alt="image" src="https://github.com/user-attachments/assets/cd4ffa20-0678-4743-b036-f9950ae661b4" />  
 
@@ -140,8 +175,7 @@ Membuat FTP server pada node Chisa menggunakan vsFTPd dengan direktori `/var/wir
 - Mika → hanya dapat membaca file.  
 - Eiri → tidak diperbolehkan mengakses FTP.  
 
-Install vsFTPd  
-Pada node Chisa:  
+Install vsFTPd pada node Chisa:  
 ```
 apk update
 apk add vsftpd
@@ -297,7 +331,10 @@ cat /root/.ssh/id_ed25519_mika_admin.pub
 <img width="482" height="36" alt="image" src="https://github.com/user-attachments/assets/2829ba08-8551-4819-9efc-8217f156d04a" />
 
 Hasil `cat /root/.ssh/id_ed25519_mika_admin.pub`  
-```ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8sp7nlUzGMxaZ9VYqHEBxfta9f9PZD+9esuLrjMcjW root@Mika```  
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8sp7nlUzGMxaZ9VYqHEBxfta9f9PZD+9esuLrjMcjW root@Mika
+```
+
 <img width="481" height="34" alt="image" src="https://github.com/user-attachments/assets/6a0f9e9e-5782-453d-93a3-b7c134090492" />
 
 Di Knights  
@@ -336,14 +373,13 @@ ssh -i /root/.ssh/id_ed25519_mika_admin mika_admin@192.243.3.2
 <img width="486" height="274" alt="image" src="https://github.com/user-attachments/assets/1677cbf8-9cb2-4dbe-bbb7-0d617a4547b0" />
 
 
-Analisis Wireshark  
-
-Untuk melihat komunikasi SSH digunakan filter:  
+Analisis Wireshark, untuk melihat komunikasi SSH digunakan filter:  
 ```
 ip.addr == 192.243.3.2 && tcp.port == 22
 ```
-<img width="959" height="562" alt="image" src="https://github.com/user-attachments/assets/2bcd438a-051a-4bc5-ae7c-97ac21d50120" />
 
+<img width="959" height="562" alt="image" src="https://github.com/user-attachments/assets/2bcd438a-051a-4bc5-ae7c-97ac21d50120" />  
+  
 Berdasarkan hasil capture, koneksi SSH dari Mika (`192.243.1.3`) menuju Knights (`192.243.3.2`) diawali dengan TCP three-way handshake berupa `SYN`, `SYN-ACK`, dan `ACK`. Selanjutnya terjadi pertukaran versi protokol SSH dan proses Key Exchange. Setelah proses pertukaran kunci selesai, komunikasi selanjutnya ditampilkan sebagai `Encrypted packet`, sehingga isi komunikasi tidak terlihat sebagai plaintext.  
 
 ### Soal 15 -  
@@ -353,7 +389,8 @@ Buka `wired_usb_hid.pcap` di Wireshark. Kemudian untuk mencari descriptor USB, b
 
 Kemudian untuk keystrok, ketik filter `usb.capdata || usbhid.data` pada Wireshark untuk menampilkan data HID  
 
-<img width="682" height="486" alt="image" src="https://github.com/user-attachments/assets/9ce071fe-97eb-435b-add7-aadd953ced89" />
+<img width="682" height="486" alt="image" src="https://github.com/user-attachments/assets/9ce071fe-97eb-435b-add7-aadd953ced89" />  
+  
 Ambil data HID, kemudian decode keycode untuk mengetahui karakter yang diketik oleh perangkat USB.  
   
 Setelah mendapatkan informasi dari hasil analisis PCAP, dilakukan validasi menggunakan socket server yang disediakan.   
@@ -368,6 +405,7 @@ Di Wireshark, masukkan display filter `tcp.port == 25` dan cari email pemerasan 
 <img width="866" height="484" alt="image" src="https://github.com/user-attachments/assets/06b9411f-4291-45ab-8cb5-68d515e9b1ea" />
 
 Lihat TCP Stream untuk melihat isi percakapan SMTP lengkap  
+
 <img width="741" height="768" alt="image" src="https://github.com/user-attachments/assets/52e00214-7309-4ffd-844d-91d10a50009a" />  
 <img width="620" height="768" alt="image" src="https://github.com/user-attachments/assets/99a51313-a848-4cb6-9728-f74f6212c6a7" />
 
