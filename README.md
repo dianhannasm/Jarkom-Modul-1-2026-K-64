@@ -188,11 +188,12 @@ chmod +x /root/cek_status.sh
 
 ### a. Download script generator traffic melalui link yang diberikan pada soal.
 
-<img width="686" height="524" alt="no6_1" src="https://github.com/user-attachments/assets/75dbcbe9-4bc1-424e-90e7-0ab586f7ccd3" />
+<img width="686" height="524" alt="no6_1" src="https://github.com/user-attachments/assets/e02f76cf-7b32-4328-8dae-3ee8be63bc61" />
 
 >ekstrak zip filenya
 
-<img width="667" height="124" alt="image" src="https://github.com/user-attachments/assets/01665f85-5075-45d2-96aa-ae426aed2f2e" />
+<img width="663" height="120" alt="no6_2" src="https://github.com/user-attachments/assets/f30c3a10-9869-493e-8fc8-9d4498fe486c" />
+
 <br>
 
 ### b. Script
@@ -223,7 +224,7 @@ dns || icmp
 
 >**Hasil capture**
 
-<img width="748" height="500" alt="no6" src="https://github.com/user-attachments/assets/e38a2658-21f1-495d-94d1-29baba257833" />
+<img width="748" height="500" alt="no6" src="https://github.com/user-attachments/assets/5fa97b9c-676b-4ac4-a1dc-1f2483debcca" />
 
 ## d. analisis
 Penerapan display filter dns || icmp pada Wireshark berhasil menyaring 14 paket utama di node Mika (192.243.1.3), yang mencakup komunikasi Echo Request/Reply ICMP ke 8.8.8.8 dan 1.1.1.1 serta kueri DNS untuk domain seperti its.ac.id, example.com, google.com, cloudflare.com, dan github.com. Terlihat jelas bahwa seluruh aktivitas uji konektivitas ICMP berjalan lancar dan permintaan resolusi nama domain berhasil direspons oleh resolver tujuan.
