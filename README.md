@@ -338,7 +338,7 @@ put knights_report.txt
 quit
 ```
 
-<img width="708" height="149" alt="no8" src="https://github.com/user-attachments/assets/25ecc38a-7307-402c-bbfb-b2ef5438cde8" />
+<img width="708" height="149" alt="no8" src="https://github.com/user-attachments/assets/341c5438-7586-4d5f-810a-ad4557b2178b" />
 
 ### c. Capture
 >Untuk step capture, pada saat itu kami tidak menggunakan wireshark dikarenakan ada kendala ketika ingin membuka wireshark. 
@@ -349,7 +349,7 @@ tcpdump -nn -i eth0 -A port 21
 
 **Hasil capture**
 
-<img width="1278" height="772" alt="no8_1" src="https://github.com/user-attachments/assets/c5feea71-bafc-4c71-81d4-df1d83c3c795" />
+<img width="1278" height="772" alt="no8_1" src="https://github.com/user-attachments/assets/23dd5aad-3bf2-4627-a998-1b0f49572eba" />
 
 ## d. Analisis
 
@@ -402,7 +402,7 @@ ping -c 77 -s 128 -i 0.3 192.243.2.2
 
 **Hasil Eksekusi Terminal**
 
-<img width="1170" height="584" alt="no10" src="https://github.com/user-attachments/assets/80a6a8bf-fe90-494d-bd7e-27082e52d78a" />
+<img width="1170" height="584" alt="no10" src="https://github.com/user-attachments/assets/fb021cac-5da6-410d-8d30-7f757434ba33" />
 
 ### b. Capture Paket ICMP via Wireshark
 
@@ -411,7 +411,7 @@ ping -c 77 -s 128 -i 0.3 192.243.2.2
 
 **Hasil Capture Wireshark**
 
-<img width="1249" height="442" alt="no10_1" src="https://github.com/user-attachments/assets/bd7e5fea-9a74-43fe-9430-a51d1e0a8857" />
+<img width="1249" height="442" alt="no10_1" src="https://github.com/user-attachments/assets/d961906c-01ae-4785-8f24-0a953edf6542" />
 
 ### c. Pembahasan & Analisis Soal 10
 
@@ -457,11 +457,11 @@ telnetd
 
 **Hasil eksekusi instalasi paket:**
 
-<img width="645" height="222" alt="no11_install" src="https://github.com/user-attachments/assets/08c09b2e-c3f1-4d71-98cb-9738bef3a140" />
+<img width="645" height="222" alt="no11_install" src="https://github.com/user-attachments/assets/85ea6f21-5b11-40ec-8919-43dca605d000" />
 
 **Hasil eksekusi pembuatan user dan menjalankan telnetd:**
 
-<img width="662" height="207" alt="no11_1" src="https://github.com/user-attachments/assets/4c0b1412-0aac-46a4-becd-bb7395fdd534" />
+<img width="662" height="207" alt="no11_1" src="https://github.com/user-attachments/assets/aeb1b75d-5cd7-4b38-8769-f3d6abe9e6ce" />
 
 ### b. Login Telnet dari Node Client (Eiri)
 
@@ -476,9 +476,9 @@ telnet 192.243.2.2
 
 **Hasil login Telnet berhasil:**
 
-<img width="807" height="491" alt="no11_2" src="https://github.com/user-attachments/assets/e7d1a7bb-dd7c-4519-a3b4-352e358b1b4d" />
+<img width="807" height="491" alt="no11_2" src="https://github.com/user-attachments/assets/48dee4fe-b377-4823-be52-d5ea5b1fbffc" />
 
-<img width="647" height="305" alt="no11_3" src="https://github.com/user-attachments/assets/84017e44-2fee-412c-b83f-ff98f349ff5a" />
+<img width="647" height="305" alt="no11_3" src="https://github.com/user-attachments/assets/a9ac671c-d2fc-4120-b968-1db521b76091" />
 
 ### c. Analisis Sesi Menggunakan Wireshark
 
@@ -486,11 +486,11 @@ telnet 192.243.2.2
 
 **Tangkapan Paket (Packet List):** Terlihat lalu lintas Telnet di mana data dikirim per 1 byte.
 
-<img width="1245" height="780" alt="no11_TELNET_1" src="https://github.com/user-attachments/assets/03909523-74b0-445b-b22f-b41d547be221" />
+<img width="1245" height="780" alt="no11_TELNET_1" src="https://github.com/user-attachments/assets/ea96a763-1cac-4424-8262-b4dd62e52eb5" />
 
 **Hasil Follow TCP Stream:**
 
-<img width="829" height="795" alt="no11_TELNET_2" src="https://github.com/user-attachments/assets/0d0292dd-9e17-41b4-bf81-e08211736bde" />
+<img width="829" height="795" alt="no11_TELNET_2" src="https://github.com/user-attachments/assets/6bc0e8af-853b-4a6c-908c-aa771942a3dd" />
 
 ### d. Pembahasan & Analisis Soal 11
 
@@ -622,17 +622,17 @@ Berdasarkan hasil capture, koneksi SSH dari Mika (`192.243.1.3`) menuju Knights 
 
 Dari hasil filter, terlihat IP penyerang (`Source`) adalah `172.26.7.50` dan IP target (`Destination`) adalah `172.26.7.100`, dengan puluhan paket POST berulang ke `/login.php` yang menandakan percobaan login secara otomatis (brute-force).
 
-<img width="1248" height="617" alt="no14_wireshark_1" src="https://github.com/user-attachments/assets/c323800a-6764-4bab-8d66-e51949bdf858" />
+<img width="1248" height="617" alt="no14_wireshark_1" src="https://github.com/user-attachments/assets/d45374a8-25df-43bc-ad33-7ca171d04728" />
 
 ### b. Identifikasi Kredensial dan Versi Web Server
 
 >Ubah filter Wireshark menjadi `http.response.code == 200 || http.response.code == 302` untuk melihat respons login yang berhasil.
 
-<img width="1256" height="237" alt="no14_wireshark_2" src="https://github.com/user-attachments/assets/2795c53d-3380-4315-a35c-b565ad73dd4e" />
+<img width="1256" height="237" alt="no14_wireshark_2" src="https://github.com/user-attachments/assets/3ab8d1bd-64a3-4161-a8df-f354c06e3c68" />
 
 >Klik kanan pada paket yang muncul (stream 59, menuju `172.26.7.100:8080`), lalu pilih **Follow > HTTP Stream**.
 
-<img width="834" height="792" alt="no14_wireshark_3" src="https://github.com/user-attachments/assets/7e8278b5-6d40-478a-9d9a-45be7feb5931" />
+<img width="834" height="792" alt="no14_wireshark_3" src="https://github.com/user-attachments/assets/f1ca052c-55d4-4625-8327-be1fbc9925b4" />
 
 Dari hasil *Follow HTTP Stream*, didapatkan detail sebagai berikut:
 
@@ -654,9 +654,7 @@ nc 10.4.89.250 3401
 > - Password: `wired_pr0tocol_7`
 > - Web Server: `Apache/2.4.62`
 
-
-<img width="892" height="364" alt="no14_2" src="https://github.com/user-attachments/assets/712d646e-26e0-4bcd-9f59-9a7c59e322bd" />
-
+<img width="892" height="364" alt="no14_2" src="https://github.com/user-attachments/assets/8e600aa6-b6d0-4bf6-976f-fe199dc0dfa4" />
 
 **Flag:** `KOMJAR26{W1r3d_Brut3_ofGWOszZFdRWl2gbaXEJsvORj}`
 
@@ -684,15 +682,15 @@ Setelah mendapatkan informasi dari hasil analisis PCAP, dilakukan validasi mengg
 
 Dari lalu lintas paket yang ada, terlihat tiga sesi FTP berbeda (ke `10.7.3.60`, `10.7.3.30`, dan `198.51.100.7`). Dengan menyaring lebih lanjut menggunakan filter `ftp.request.command == "RETR" || ftp-data`, ditemukan tiga permintaan unduh file, di antaranya perintah `RETR knights_payload.exe` menuju IP `198.51.100.7` — inilah interaksi unduhan malware yang dimaksud, sehingga IP server FTP penyedia malware terdeteksi di `198.51.100.7`.
 
-<img width="1248" height="795" alt="no16_2" src="https://github.com/user-attachments/assets/f2c4bcff-54f7-4505-9494-25062c9510ab" />
+<img width="1248" height="795" alt="no16_2" src="https://github.com/user-attachments/assets/561dcfd6-d17a-4fd9-845c-e28b54b06a0f" />
 
-<img width="1251" height="801" alt="no16_3" src="https://github.com/user-attachments/assets/11029edd-aa49-486f-a8ee-a205602415bc" />
+<img width="1251" height="801" alt="no16_3" src="https://github.com/user-attachments/assets/b1fe394b-e3e9-497d-8170-37c610d68a7d" />
 
 ### b. Identifikasi Banner, Kredensial, dan Ukuran File
 
 >Klik kanan pada paket interaksi FTP tersebut, lalu pilih **Follow > TCP Stream**.
 
-<img width="827" height="790" alt="no16_4" src="https://github.com/user-attachments/assets/56ce30ca-4c94-4224-8d82-ca7620903d0e" />
+<img width="827" height="790" alt="no16_4" src="https://github.com/user-attachments/assets/d5c267e5-6c9e-4971-bd48-b4d96fcb3fac" />
 
 
 Berdasarkan pesan respons dan perintah pada stream FTP di atas:
@@ -714,7 +712,7 @@ nc 10.4.89.250 3403
 > - Credentials (user:pass): `knights_agent:N4v1_s3cur3_2026`
 > - Malware File Size (bytes): `524288`
 
-<img width="892" height="374" alt="no16_5" src="https://github.com/user-attachments/assets/2728bae2-7f01-4bda-be2f-8a1520bddbd2" />
+<img width="892" height="374" alt="no16_5" src="https://github.com/user-attachments/assets/8e687bfe-f9a1-43ce-a239-3ae4f315aa6b" />
 
 **Flag:** `KOMJAR26{FTP_Th3ft_R2ezQCoEsXG66qwXkkMeQTanq}`
 
@@ -724,7 +722,7 @@ nc 10.4.89.250 3403
 
 >Buka file capture `soal17_wired_http_c2.pcapng` di Wireshark. Perhatikan pencarian DNS pada paket 25 dan 26 untuk menemukan domain yang diakses sebelum pengunduhan payload.
 
-=<img width="1254" height="793" alt="no17_1" src="https://github.com/user-attachments/assets/2cb52654-36aa-4015-b10c-45d2c9d38e6f" />
+<img width="1254" height="793" alt="no17_1" src="https://github.com/user-attachments/assets/1bfe40bc-25ed-4d96-9761-358565a28098" />
 
 * Klien (`10.7.1.50`) melakukan DNS query untuk domain `wired-update.net` pada paket 25.
 * DNS Server (`8.8.8.8`) mengembalikan balasan pada paket 26 bahwa `wired-update.net` berada pada alamat IP `203.0.113.42`.
@@ -735,15 +733,15 @@ nc 10.4.89.250 3403
 
 >Periksa paket 30 dan 31 yang berisi lalu lintas HTTP pengunduhan berkas malware.
 
-<img width="1254" height="799" alt="no17_2" src="https://github.com/user-attachments/assets/0e2fc43a-f3e9-4b7d-a5e0-24512b9914ed" />
+<img width="1254" height="799" alt="no17_2" src="https://github.com/user-attachments/assets/47598bfd-04d8-4edd-84c0-817cb8a74c93" />
 
 * **Paket 30 (HTTP GET Request)**: Klien mengirimkan permintaan `GET /navi_agent.exe HTTP/1.1` ke IP `203.0.113.42` dengan header `Host: wired-update.net`.
 
-<img width="1252" height="795" alt="no17_3" src="https://github.com/user-attachments/assets/128f7d85-f986-41c3-acac-af373bd08cc1" />
+<img width="1252" height="795" alt="no17_3" src="https://github.com/user-attachments/assets/4d9da222-f5e4-4247-8e31-a2022dddcf48" />
 
 * **Paket 31 (HTTP Response)**: Server web memberikan respons `HTTP/1.1 200 OK` dengan header `Server: nginx/1.24.0` dan `Content-Type: application/octet-stream`, yang menandakan payload biner (`navi_agent.exe`) berhasil diunduh sepenuhnya.
 
-<img width="1252" height="794" alt="no17_4" src="https://github.com/user-attachments/assets/d532254f-bdc0-4e7e-8ea1-bdbc5d06ecd6" />
+<img width="1252" height="794" alt="no17_4" src="https://github.com/user-attachments/assets/003cfe11-0d7f-4064-af56-c4b7ce9b4049" />
 
 ### c. Validasi Temuan pada Socket Server
 
@@ -758,7 +756,7 @@ nc 10.4.89.250 3404
 > - Malware Executable Filename: `navi_agent.exe`
 > - HTTP Status Response Code: `200`
 
-<img width="1170" height="619" alt="no17_5" src="https://github.com/user-attachments/assets/1f6f5816-dd39-4f16-912a-f388852b13b6" />
+<img width="1170" height="619" alt="no17_5" src="https://github.com/user-attachments/assets/df8f9289-a522-44d1-a312-23348abb016a" />
 
 **Flag:** `KOMJAR26{Navi_C2_D0wnl04d_uApWZjAmB2PSUAqwE8pqLXHom}`
 
@@ -768,23 +766,23 @@ nc 10.4.89.250 3404
 
 >Langkah pertama adalah membuka file capture `wired_smb_transfer.pcapng` di Wireshark. Dari lalu lintas yang terekam, kita dapat melihat bahwa komunikasi jaringan didominasi oleh protokol file sharing Windows.
 
-<img width="1245" height="797" alt="no18" src="https://github.com/user-attachments/assets/35b9a662-239d-4301-9a43-62028602cf78" />
+<img width="1245" height="797" alt="no18" src="https://github.com/user-attachments/assets/d807a703-a2e1-4196-bb73-99a7133b8b5f" />
 
 * **Protokol Jaringan**: Protokol yang dieksploitasi untuk mentransfer file ini adalah SMB (diidentifikasi sebagai SMB2 pada Wireshark, terlihat sejak paket *Negotiate Protocol Request*).
 * **IP Pengirim (Attacker)**: Alamat IP host sumber yang mengirimkan instruksi dan malware adalah `10.7.3.100`.
 * **IP Penerima (Victim)**: Alamat IP host korban yang menerima malware adalah `10.7.1.50`.
 
-<img width="1245" height="797" alt="no18_1" src="https://github.com/user-attachments/assets/bd9f63b5-0c04-4ed9-bac8-a94cffb2d262" />
+<img width="1245" height="797" alt="no18_1" src="https://github.com/user-attachments/assets/4e16881c-9d9b-4878-a5cc-d2e0f8b61b36" />
 
 ### b. Identifikasi Folder Tujuan dan Nama File Malware
 
 >Selanjutnya, kita menelusuri paket-paket spesifik dalam stream tersebut untuk mengetahui ke mana file disimpan dan apa namanya.
 
-<img width="1245" height="797" alt="no18_3" src="https://github.com/user-attachments/assets/c25b442b-df58-4760-9a01-262858e92406" />
+<img width="1245" height="797" alt="no18_3" src="https://github.com/user-attachments/assets/050d9b3d-8eb5-4753-805b-a3b706891ca9" />
 
 * **Folder Tujuan**: Pada paket nomor 12 (*Tree Connect Request*), terlihat bahwa penyerang mengakses *administrative share* pada sistem korban dengan rujukan path `\\10.7.1.50\ADMIN$`. Ini berarti folder tujuan penyimpanannya adalah `ADMIN$`.
 
-<img width="1245" height="797" alt="no18_4" src="https://github.com/user-attachments/assets/05a35c2e-a772-40ea-a3a4-66d5a0fe1dca" />
+<img width="1245" height="797" alt="no18_4" src="https://github.com/user-attachments/assets/cfa9910c-c950-4b19-b606-c64872987965" />
 
 * **Nama File Executable**: Pada paket nomor 16 (*Create Request*), terdapat permintaan pembuatan file baru. Nama file *executable* malware yang ditransfer masuk ke dalam direktori `System32` korban adalah `wired_trojan_payload.exe`.
 
@@ -802,7 +800,7 @@ nc 10.4.89.250 3405
 > - Target share or directory: `ADMIN$`
 > - Filename of the executable malware: `wired_trojan_payload.exe`
 
-<img width="1167" height="619" alt="no18_5" src="https://github.com/user-attachments/assets/41c2f761-ba9c-43ba-9b56-dfa9df4c2e5d" />
+<img width="1167" height="619" alt="no18_5" src="https://github.com/user-attachments/assets/78bdad82-bcf8-4463-8fc0-e795a8f963fb" />
 
 **Flag:** `KOMJAR26{SMB_Tr4nsf3r_Tssoap3oiw7cUlI0Eq7fldJSv}`
 
@@ -833,7 +831,7 @@ Lakukan validasi pada `nc 10.4.89.250 3406`
 >- Pilih menu **Protocols**, lalu cari dan pilih **TLS**.
 >- Pada kolom **(Pre)-Master-Secret log filename**, klik **Browse** dan masukkan file `keyslogfile.txt`. Setelah diaplikasikan, Wireshark akan otomatis mendekripsi paket TLS yang memiliki kunci yang bersesuaian.
 
-<img width="814" height="574" alt="no20_2" src="https://github.com/user-attachments/assets/1b0519b0-59f0-4b22-aafa-023a36238ebf" />
+<img width="814" height="574" alt="no20_2" src="https://github.com/user-attachments/assets/d3f7481a-aa5a-4deb-bb4c-61f94e96d373" />
 
 ### b. Identifikasi Parameter TLS dan HTTP
 
@@ -841,25 +839,25 @@ Lakukan validasi pada `nc 10.4.89.250 3406`
 
 * **Versi Protokol TLS**: Pada daftar paket (kolom Protocol), terlihat bahwa komunikasi terenkripsi dinegosiasikan menggunakan versi `TLSv1.2`.
 
-<img width="1825" height="802" alt="no20_3" src="https://github.com/user-attachments/assets/11073d3c-45da-420d-9e0a-c8528ca6c46c" />
+<img width="1825" height="802" alt="no20_3" src="https://github.com/user-attachments/assets/c50926ff-f83d-495b-bf8f-f5289f6788cd" />
 
 * **Domain Name (SNI)**: Dari paket *Client Hello*, klien meminta akses ke host dengan *Server Name Indication* (SNI) `example.com`.
 
-<img width="1825" height="802" alt="no20_4" src="https://github.com/user-attachments/assets/b393148c-78ed-49e8-8bc5-b302f7b8f719" />
+<img width="1825" height="802" alt="no20_4" src="https://github.com/user-attachments/assets/b46c3513-f676-483e-844b-1ce0c0f3243c" />
 
 * **IP Server HTTPS**: Alamat IP tujuan (*Destination*) dari server HTTPS tersebut adalah `93.184.216.34`.
 
-<img width="1825" height="802" alt="no20_5" src="https://github.com/user-attachments/assets/d00b91e7-1362-40d1-88d0-5dceca138eb3" />
+<img width="1825" height="802" alt="no20_5" src="https://github.com/user-attachments/assets/bf0e66b3-fc1a-4e75-8e7b-c737496a7963" />
 
 Selanjutnya, dari dalam sesi HTTP yang kini sudah bisa dibaca (didekripsi), kita bisa melihat header request yang dikirim oleh klien:
 
 * **User-Agent**: Klien menggunakan *command-line tool* untuk melakukan request, yang diidentifikasi dari string `curl/7.62.0`.
 
-<img width="1825" height="802" alt="no20_6" src="https://github.com/user-attachments/assets/0ca6b987-5988-48cb-9692-3d979ff73d99" />
+<img width="1825" height="802" alt="no20_6" src="https://github.com/user-attachments/assets/5894e1e3-3b9d-48bf-96ad-9b8779ab5dce" />
 
 * **HTTP Request Method & Path**: Baris pertama dari HTTP request menunjukkan metode dan path yang digunakan, yaitu `HEAD / HTTP/1.1`.
 
-<img width="1825" height="802" alt="no20_7" src="https://github.com/user-attachments/assets/acc579d4-bb6a-498f-bbcd-bcca6912bea9" />
+<img width="1825" height="802" alt="no20_7" src="https://github.com/user-attachments/assets/60aebe9c-474a-4251-a0eb-b6e283e3e5dd" />
 
 ### c. Validasi Temuan pada Socket Server
 
@@ -875,6 +873,6 @@ nc 10.4.89.250 3407
 > - User-Agent string: `curl/7.62.0`
 > - HTTP request method and path: `HEAD / HTTP/1.1`
 
-<img width="804" height="405" alt="no20_8" src="https://github.com/user-attachments/assets/6e144e58-9e77-4b1b-9262-af76a1e941f4" />
+<img width="804" height="405" alt="no20_8" src="https://github.com/user-attachments/assets/c4a64402-7622-4325-8260-dc3ea6cfc441" />
 
 **Flag:** `KOMJAR26{TLS_D3crypt_cTtcuYV9AqEArZEauyuYNJzim}`
