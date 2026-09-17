@@ -220,4 +220,158 @@ EOF
 5. Tes Eiri - harus ditolak  
    <img width="514" height="133" alt="image" src="https://github.com/user-attachments/assets/69b1899a-e261-4a43-90f8-7276349b3c09" />
 
-### Soal 9 -
+### Soal 9 - Mika
+Di Chisa, buat `protocol7_manifesto.txt`:  
+```
+nano /var/wired/data/protocol7_manifesto.txt
+
+chown alice:ftpusers /var/wired/data/protocol7_manifesto.txt
+chmod 644 /var/wired/data/protocol7_manifesto.txt
+```
+Dari Mika, download file.  
+```
+get protocol_manifesto.txt
+```
+Kemudian, coba upload sebagai Mika, buat file dummy dan coba untuk download.  
+```
+echo "Mika upload test" > mika_test.txt
+
+put mika_test.txt
+```
+
+<img width="961" height="244" alt="image" src="https://github.com/user-attachments/assets/41ee5335-d3ab-46fb-b026-d99fa62418ea" />
+
+### Soal 12 - Alice ke Knights  
+Targetnya:  
+| Port | Kondisi | Yang harus terlihat |
+| ---- | ------- | ------------------- |
+| 22   | Open    | `SYN → SYN-ACK`     |
+| 80   | Open    | `SYN → SYN-ACK`     |
+| 7777 | Closed  | `SYN → RST-ACK`     |
+
+Dari Knights, Install SSH + web server dan aktifkan  
+```
+apk update
+apk add openssh nginx
+
+ssh-keygen -A
+/usr/sbin/sshd
+nginx
+```
+
+<img width="481" height="69" alt="image" src="https://github.com/user-attachments/assets/68109dc4-33d7-48a1-8e6d-78fe206f2d39" />
+  
+Dari Alice, cek port 22, 80, dan 7777  
+```
+nc -zv 192.243.3.2 22
+
+nc -zv 192.243.3.2 80
+
+nc -zv 192.243.3.2 7777
+```
+Capture wireshare.  
+<img width="941" height="465" alt="image" src="https://github.com/user-attachments/assets/f0ef842a-c125-4503-8015-b15ef56391dc" />
+
+Pada port `22` dan `80`, Knights merespons paket `SYN` dari Alice dengan `SYN-ACK`, yang menunjukkan bahwa terdapat layanan yang listening pada kedua port tersebut. Sementara itu, pada port `7777`, Knights merespons `SYN` dengan `RST-ACK` karena tidak terdapat layanan yang berjalan pada port tersebut. Dengan demikian, perbedaan TCP Flag dapat digunakan untuk membedakan port yang terbuka dan tertutup.  
+
+### Soal 13 -   
+- Knights → buat user `mika_admin`, pasang public key, matikan password login.
+- Mika → generate SSH key, lalu gunakan private key untuk login.
+
+Di Knights, buat user `mika_admin`  
+```
+adduser -D mika_admin
+
+mkdir -p /home/mika_admin/.ssh
+chmod 700 /home/mika_admin/.ssh
+```
+
+Di Mika, buat ssh key  
+```
+mkdir -p /root/.ssh
+ssh-keygen -t ed25519 -f /root/.ssh/id_ed25519_mika_admin
+
+cat /root/.ssh/id_ed25519_mika_admin.pub
+```
+
+<img width="482" height="36" alt="image" src="https://github.com/user-attachments/assets/2829ba08-8551-4819-9efc-8217f156d04a" />
+
+Hasil `cat /root/.ssh/id_ed25519_mika_admin.pub`  
+```ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8sp7nlUzGMxaZ9VYqHEBxfta9f9PZD+9esuLrjMcjW root@Mika```  
+<img width="481" height="34" alt="image" src="https://github.com/user-attachments/assets/6a0f9e9e-5782-453d-93a3-b7c134090492" />
+
+Di Knights  
+```
+nano /home/mika_admin/.ssh/authorized_keys
+```
+Lalu masukkan public keynya.  
+Setelah itu permission dan ownership diatur:  
+```
+chmod 600 /home/mika_admin/.ssh/authorized_keys
+chown -R mika_admin:mika_admin /home/mika_admin/.ssh
+```
+Pada Knights, file konfigurasi SSH diedit:  
+```
+nano /etc/ssh/sshd_config
+
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+PubkeyAuthentication yes
+```
+Cek konfigurasi:  
+```
+sshd -t
+```  
+Kemudian restart SSH:  
+```
+pkill sshd
+/usr/sbin/sshd
+```
+
+Pada Mika, koneksi dilakukan menggunakan private key:  
+```
+ssh -i /root/.ssh/id_ed25519_mika_admin mika_admin@192.243.3.2
+```
+
+<img width="486" height="274" alt="image" src="https://github.com/user-attachments/assets/1677cbf8-9cb2-4dbe-bbb7-0d617a4547b0" />
+
+
+Analisis Wireshark  
+
+Untuk melihat komunikasi SSH digunakan filter:  
+```
+ip.addr == 192.243.3.2 && tcp.port == 22
+```
+<img width="959" height="562" alt="image" src="https://github.com/user-attachments/assets/2bcd438a-051a-4bc5-ae7c-97ac21d50120" />
+
+Berdasarkan hasil capture, koneksi SSH dari Mika (`192.243.1.3`) menuju Knights (`192.243.3.2`) diawali dengan TCP three-way handshake berupa `SYN`, `SYN-ACK`, dan `ACK`. Selanjutnya terjadi pertukaran versi protokol SSH dan proses Key Exchange. Setelah proses pertukaran kunci selesai, komunikasi selanjutnya ditampilkan sebagai `Encrypted packet`, sehingga isi komunikasi tidak terlihat sebagai plaintext.  
+
+### Soal 15 -  
+Buka `wired_usb_hid.pcap` di Wireshark. Kemudian untuk mencari descriptor USB, bisa pakai filter `usb`.  Kemudian, lihat panel tengah/bawah yang namanya Packet Details. Cari bagian Device Descriptor.  
+
+<img width="959" height="563" alt="Screenshot 2026-09-17 144303" src="https://github.com/user-attachments/assets/c654aff1-5654-410d-aa1a-01163c948daf" />
+
+Kemudian untuk keystrok, ketik filter `usb.capdata || usbhid.data` pada Wireshark untuk menampilkan data HID  
+
+<img width="682" height="486" alt="image" src="https://github.com/user-attachments/assets/9ce071fe-97eb-435b-add7-aadd953ced89" />
+Ambil data HID, kemudian decode keycode untuk mengetahui karakter yang diketik oleh perangkat USB.  
+  
+Setelah mendapatkan informasi dari hasil analisis PCAP, dilakukan validasi menggunakan socket server yang disediakan.   
+
+<img width="1060" height="510" alt="image" src="https://github.com/user-attachments/assets/62aef049-a017-4806-bb31-b6fc20ae9a6c" />
+
+### Soal 19 -  
+Buka file `soal19_wired_smtp_threat.pcapng`  
+
+Di Wireshark, masukkan display filter `tcp.port == 25` dan cari email pemerasan Eiri  
+
+<img width="866" height="484" alt="image" src="https://github.com/user-attachments/assets/06b9411f-4291-45ab-8cb5-68d515e9b1ea" />
+
+Lihat TCP Stream untuk melihat isi percakapan SMTP lengkap  
+<img width="741" height="768" alt="image" src="https://github.com/user-attachments/assets/52e00214-7309-4ffd-844d-91d10a50009a" />  
+<img width="620" height="768" alt="image" src="https://github.com/user-attachments/assets/99a51313-a848-4cb6-9728-f74f6212c6a7" />
+
+Lakukan validasi pada `nc 10.4.89.250 3406`  
+
+<img width="961" height="582" alt="image" src="https://github.com/user-attachments/assets/35b9b51e-8af5-493d-a32e-6b0d83f331d1" />
+
