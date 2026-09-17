@@ -1,8 +1,23 @@
 # Jarkom-Modul-1-2026-K-64  
 Mahrinza Redouane Zakariyah  5027251074  
 Dian Hanna Simanjuntak       5027251116
+  
 ## Reporting
+  
+### Daftar Isi
+- [Soal 1](#soal-1---konfigurasi-topologi-dan-ip-address)
+- [Soal 2](#soal-2---koneksi-lain-ke-public-internet)
+- [Soal 3](#soal-3---routing-antarjaringan)
+- [Soal 4](#soal-4---nat-dan-dns-resolver)
+- [Soal 5](#soal-5---persistensi-konfigurasi)
+- [Soal 7](#soal-7---konfigurasi-ftp-server-pada-chisa)
+- [Soal 9](#soal-9---mika)
+- [Soal 12](#soal-12---alice-ke-knights)
+- [Soal 13](#soal-13---ssh)
+- [Soal 15](#soal-15---analisis-usb-hid)
+- [Soal 19](#soal-19---smtp-threat)
 
+  
 ### Soal 1 - Konfigurasi Topologi dan IP Address  
 <img width="739" height="422" alt="image" src="https://github.com/user-attachments/assets/a5b22b3a-d5f0-4104-9e9c-2cad64907d73" />  
   
@@ -308,7 +323,7 @@ Capture wireshare.
 
 Pada port `22` dan `80`, Knights merespons paket `SYN` dari Alice dengan `SYN-ACK`, yang menunjukkan bahwa terdapat layanan yang listening pada kedua port tersebut. Sementara itu, pada port `7777`, Knights merespons `SYN` dengan `RST-ACK` karena tidak terdapat layanan yang berjalan pada port tersebut. Dengan demikian, perbedaan TCP Flag dapat digunakan untuk membedakan port yang terbuka dan tertutup.  
 
-### Soal 13 -   
+### Soal 13 - SSH  
 - Knights → buat user `mika_admin`, pasang public key, matikan password login.
 - Mika → generate SSH key, lalu gunakan private key untuk login.
 
@@ -382,7 +397,7 @@ ip.addr == 192.243.3.2 && tcp.port == 22
   
 Berdasarkan hasil capture, koneksi SSH dari Mika (`192.243.1.3`) menuju Knights (`192.243.3.2`) diawali dengan TCP three-way handshake berupa `SYN`, `SYN-ACK`, dan `ACK`. Selanjutnya terjadi pertukaran versi protokol SSH dan proses Key Exchange. Setelah proses pertukaran kunci selesai, komunikasi selanjutnya ditampilkan sebagai `Encrypted packet`, sehingga isi komunikasi tidak terlihat sebagai plaintext.  
 
-### Soal 15 -  
+### Soal 15 - Analisis USB HID  
 Buka `wired_usb_hid.pcap` di Wireshark. Kemudian untuk mencari descriptor USB, bisa pakai filter `usb`.  Kemudian, lihat panel tengah/bawah yang namanya Packet Details. Cari bagian Device Descriptor.  
 
 <img width="959" height="563" alt="Screenshot 2026-09-17 144303" src="https://github.com/user-attachments/assets/c654aff1-5654-410d-aa1a-01163c948daf" />
@@ -397,7 +412,7 @@ Setelah mendapatkan informasi dari hasil analisis PCAP, dilakukan validasi mengg
 
 <img width="1060" height="510" alt="image" src="https://github.com/user-attachments/assets/62aef049-a017-4806-bb31-b6fc20ae9a6c" />
 
-### Soal 19 -  
+### Soal 19 - SMTP Threat  
 Buka file `soal19_wired_smtp_threat.pcapng`  
 
 Di Wireshark, masukkan display filter `tcp.port == 25` dan cari email pemerasan Eiri  
